@@ -24,4 +24,4 @@ These are images from my final-year project, arranged by subsystem. Click an ima
 
 The diagrams in [design](design) are functional illustrations, not CAD drawings or experimental results.
 
-[Back to project](../README.md) · [Full media index](../docs/media-inventory.md)
+[Back to project](../README.md) · [Full media index](../docs/media-inventory.md) · [Manage pictures](IMAGE_GUIDE.md)

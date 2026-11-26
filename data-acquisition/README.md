@@ -1,6 +1,16 @@
-# Data Acquisition | MQTT, InfluxDB & Grafana
+# Data Acquisition | ESP32, Wi-Fi, InfluxDB & Grafana
 
-I used this part of the project to make the physical robot's activity observable. The microcontroller acquires sensor readings, MQTT provides the communication layer, InfluxDB stores time-series data, and Grafana displays the signals.
+I used an ESP32 as the data acquisition microcontroller. It collects the sensor readings, holds the acquired data for transmission and sends them over Wi-Fi to InfluxDB. I used Grafana to display the stored readings and monitor the robot's activity. The Arduino Uno is dedicated to motion control, separate from the ESP32.
+
+```mermaid
+flowchart LR
+    S[Sensors] --> E[ESP32]
+    E -->|Wi-Fi| D[(InfluxDB)]
+    D --> G[Grafana]
+    D --> U[Unity data integration]
+```
+
+My original system diagram identifies MQTT. The Python bridge below provides a configurable MQTT-based way to reproduce the data acquisition pipeline; the exact original ESP32 firmware and transport settings are not included.
 
 ![Grafana dashboard](../assets/previews/grafana_dashboard.webp)
 
@@ -14,7 +24,7 @@ The data bridge expects a JSON object with one or more numeric acceleration, gyr
 
 The example above is synthetic; it only illustrates the message structure.
 
-## Run the bridge
+## Run the configurable MQTT bridge
 
 ```bash
 python -m pip install -r requirements.txt

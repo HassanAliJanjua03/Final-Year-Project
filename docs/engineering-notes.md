@@ -2,7 +2,7 @@
 
 ## Mechanical and electrical design
 
-I modeled the robot tower as an R-P-P-R mechanism. The first and fourth joints are revolute; the second and third are prismatic. Joint axes and dimensions must be verified against the actual CAD assembly before reproducing the kinematics. My system diagram identifies G-code, two microcontrollers, a CNC shield, four drivers and four motors. It also identifies accelerometer, gyroscope, force, pressure and temperature sensors. The available database screenshots directly show acceleration, angular-rate and temperature fields.
+I modeled the robot tower as an R-P-P-R mechanism. The first and fourth joints are revolute; the second and third are prismatic. Joint axes and dimensions must be verified against the actual CAD assembly before reproducing the kinematics. My system uses Arduino Uno for motion control and ESP32 for data acquisition, with a CNC shield, four drivers and four motors. The ESP32 collects and holds the sensor readings and transmits them over Wi-Fi to InfluxDB. MQTT is shown in my original system diagram; the exact firmware and transport configuration must be checked before reproducing it. It also identifies accelerometer, gyroscope, force, pressure and temperature sensors. The available database screenshots directly show acceleration, angular-rate and temperature fields.
 
 ## Actuator model
 
@@ -27,4 +27,4 @@ For standard DH convention, the link transform is RotZ(theta) TransZ(d) TransX(a
 
 ## Digital twin and limitations
 
-Use timestamps and coordinate conventions consistently. A dashboard displays data acquisition; a virtual-motion controller requires calibrated joint states (or a validated estimator). Acceleration integration drifts; gyroscope integration also drifts. Use appropriate position/angle measurements or validated fusion, and account for sample rate, calibration, delays and dropped data. No latency or accuracy figures are inferred from the screenshots. The wiring illustration is a reference diagram; check the component documentation before adapting the circuit.
+Use timestamps and coordinate conventions consistently. A dashboard displays acquired sensor readings; a virtual-motion controller requires calibrated joint states (or a validated estimator). Acceleration integration drifts; gyroscope integration also drifts. Use appropriate position/angle measurements or validated fusion, and account for sample rate, calibration, delays and dropped data. No latency or accuracy figures are inferred from the screenshots. The wiring illustration is a reference diagram; check the component documentation before adapting the circuit.

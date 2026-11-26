@@ -1,6 +1,6 @@
 # Physical motion control
 
-My motion-control setup consists of an Arduino Uno with GRBL, a CNC shield and A4988 drivers connected to the stepper motors.
+My motion-control setup consists of an Arduino Uno with GRBL, a CNC shield and A4988 drivers connected to the stepper motors. I used a separate ESP32 for sensor data acquisition and Wi-Fi transmission to InfluxDB. See the [Data Acquisition module](../../data-acquisition/README.md).
 
 ![Lab prototype](../../assets/previews/physical_prototype.webp)
 

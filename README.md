@@ -1,10 +1,12 @@
 <div align="center">
 
+<!-- IMAGE SECTION: Cover graphic. See assets/IMAGE_GUIDE.md. -->
 <img src="assets/design/cover.svg" alt="Digital Twin of a 4-DOF Robot Tower — Hassan Ali Janjua" width="100%">
 
 <a href="#mechanical-design"><img alt="SolidWorks" src="https://img.shields.io/badge/SolidWorks-CAD-cb2635?style=for-the-badge"></a>
 <a href="#physical-robot"><img alt="Arduino" src="https://img.shields.io/badge/Arduino-GRBL-00878F?style=for-the-badge&logo=arduino&logoColor=white"></a>
 <a href="#modeling-control"><img alt="MATLAB" src="https://img.shields.io/badge/MATLAB-Simscape-17659A?style=for-the-badge"></a>
+<a href="#data-acquisition"><img alt="ESP32" src="https://img.shields.io/badge/ESP32-Wi--Fi-E7352C?style=for-the-badge&logo=espressif&logoColor=white"></a>
 <a href="#data-acquisition"><img alt="InfluxDB" src="https://img.shields.io/badge/InfluxDB-Data-1765cf?style=for-the-badge&logo=influxdb&logoColor=white"></a>
 <a href="#data-acquisition"><img alt="Grafana" src="https://img.shields.io/badge/Grafana-Dashboard-f46800?style=for-the-badge&logo=grafana&logoColor=white"></a>
 <a href="#unity-3d-digital-twin"><img alt="Unity" src="https://img.shields.io/badge/Unity-3D-222222?style=for-the-badge&logo=unity&logoColor=white"></a>
@@ -15,6 +17,7 @@
 
 <br>
 
+<!-- IMAGE SECTION: Hero photographs: physical robot and Unity model. See assets/IMAGE_GUIDE.md. -->
 <table>
 <tr>
 <td align="center" width="50%">
@@ -48,7 +51,7 @@ There are three connected parts to the system. The first is the physical robot a
 
 | Physical system | Data acquisition | Virtual system |
 | :--- | :--- | :--- |
-| SolidWorks assembly, four motors, Arduino Uno, GRBL and CNC shield | Sensor microcontroller, MQTT, InfluxDB and Grafana | Imported CAD geometry, C# movement scripts and virtual joint control |
+| SolidWorks assembly, four motors, Arduino Uno, GRBL and CNC shield | ESP32, Wi-Fi, InfluxDB and Grafana | Imported CAD geometry, C# movement scripts and virtual joint control |
 
 ---
 
@@ -60,6 +63,7 @@ There are three connected parts to the system. The first is the physical robot a
 
 I began by designing the robot's mechanical assembly. The vertical tower and horizontal axis provide two linear movements, while the base and tool-end joints provide rotational movement. I chose an R-P-P-R configuration to combine linear positioning with rotary motion.
 
+<!-- IMAGE SECTION: SolidWorks CAD assembly. See assets/IMAGE_GUIDE.md. -->
 <table>
 <tr>
 <td width="48%" align="center"><a href="assets/previews/solidworks_assembly.webp"><img src="assets/previews/solidworks_assembly.webp" width="100%" alt="Final SolidWorks CAD assembly"></a><br><sub>Final mechanical assembly</sub></td>
@@ -96,8 +100,9 @@ The motion of the mechanism depends on the coordinate frames assigned to each jo
 
 ### From the CAD assembly to hardware
 
-I used an Arduino Uno running GRBL for the robot's motion-control side. The CNC shield connects the A4988 drivers to the stepper motors, while a second microcontroller is shown in my system design for acquiring sensor readings.
+I used an Arduino Uno running GRBL for the robot's motion-control side. The CNC shield connects the A4988 drivers to the stepper motors, while I used a separate ESP32 for data acquisition. The ESP32 collects sensor readings, holds the data for transmission and sends them to InfluxDB over Wi-Fi.
 
+<!-- IMAGE SECTION: Hardware and wiring photographs. See assets/IMAGE_GUIDE.md. -->
 <a href="assets/previews/hardware_overview.webp"><img src="assets/previews/hardware_overview.webp" alt="Original project block diagram and motor wiring reference" width="100%"></a>
 
 <sub>System block diagram and Arduino / CNC shield wiring reference.</sub>
@@ -108,7 +113,7 @@ I used an Arduino Uno running GRBL for the robot's motion-control side. The CNC 
 | CNC shield + A4988 | Interface between the controller and stepper motors |
 | Four stepper motors | Joint actuation |
 | Leadscrew and linear carriages | Convert motor rotation into linear displacement |
-| Sensor microcontroller | Acquire and transmit sensor readings |
+| ESP32 | Acquire and hold sensor readings; transmit data over Wi-Fi to InfluxDB |
 
 <details>
 <summary><b>View the motion-control sequence</b></summary>
@@ -138,6 +143,7 @@ The archived sequence needs to be checked against the actual firmware and joint 
 
 I wanted to understand the response of the robot before relying only on physical movement. For this, I divided the MATLAB work into actuator modeling, kinematics and joint-level control.
 
+<!-- IMAGE SECTION: Simulink and Simscape model images. See assets/IMAGE_GUIDE.md. -->
 <a href="assets/previews/modeling_overview.webp"><img src="assets/previews/modeling_overview.webp" alt="My Simulink stepper motor, Robotics Toolbox and Simscape Multibody models" width="100%"></a>
 
 <sub>My actuator model, forward kinematics, four-joint control system and Mechanics Explorer visualization.</sub>
@@ -154,6 +160,7 @@ G(s)=\frac{\Theta(s)}{T(s)}=\frac{1}{2.327\times10^{-6}s^2}
 
 Using Peter Corke's Robotics Toolbox, I modeled the R-P-P-R configuration and analyzed the end-effector trajectory. Forward kinematics gives the pose from the joint coordinates, while inverse kinematics finds a joint configuration for a reachable target.
 
+<!-- IMAGE SECTION: MATLAB trajectory image. See assets/IMAGE_GUIDE.md. -->
 <table>
 <tr>
 <td width="54%"><a href="assets/previews/inverse_kinematics_trajectory.webp"><img src="assets/previews/inverse_kinematics_trajectory.webp" alt="MATLAB end-effector trajectory" width="100%"></a><br><sub>End-effector trajectory in MATLAB</sub></td>
@@ -195,8 +202,9 @@ These are simulation settings, not directly transferable physical hardware gains
 
 ### From physical sensor readings to InfluxDB and Grafana
 
-Once the robot could move, the next task was to observe what was happening on the physical system. I used the sensor data acquisition architecture to collect readings, store them in InfluxDB and display them through a Grafana dashboard.
+Once the robot could move, the next task was to observe what was happening on the physical system. I used an ESP32 to collect the readings from the sensors mounted on the robot. The readings were held on the ESP32 and transmitted over Wi-Fi to InfluxDB for time-series storage. I then used Grafana to visualize the sensor readings, trends and temperature.
 
+<!-- IMAGE SECTION: InfluxDB and Grafana photographs. See assets/IMAGE_GUIDE.md. -->
 <table>
 <tr>
 <td width="50%" align="center"><a href="assets/previews/influxdb_overview.webp"><img src="assets/previews/influxdb_overview.webp" alt="InfluxDB recorded data and time-series plot" width="100%"></a><br><b>InfluxDB</b><br><sub>Timestamped sensor records</sub></td>
@@ -217,15 +225,15 @@ The system architecture also identifies force and pressure sensing. The screensh
 
 ```mermaid
 flowchart LR
-    A["Physical robot"] --> B["Sensors and microcontroller"]
-    B --> C["MQTT"]
-    C --> D[("InfluxDB")]
+    A["Physical robot"] --> B["Sensors"]
+    B --> C["ESP32 - Data Acquisition"]
+    C -->|Wi-Fi| D[("InfluxDB")]
     D --> E["Grafana"]
     D --> F["Calibrated joint state"]
     F --> G["Unity"]
 ```
 
-For reproducibility, the [data acquisition module](data-acquisition/README.md) includes the MQTT-to-InfluxDB bridge, input validation and environment-based configuration. The sample records in the test file are synthetic and are not experimental measurements.
+For reproducibility, the [data acquisition module](data-acquisition/README.md) includes a configurable MQTT-to-InfluxDB bridge, input validation and environment-based configuration. My original system diagram identifies MQTT; the exact ESP32 firmware and database transport configuration are not included here. The sample records in the test file are synthetic and are not experimental measurements.
 
 </details>
 
@@ -239,8 +247,9 @@ For reproducibility, the [data acquisition module](data-acquisition/README.md) i
 
 I imported my SolidWorks model into Unity 3D and organized its components into pivots, slides and control objects. I used C# to control rotational and translational movement, including virtual limit-switch behavior.
 
-The purpose of the digital twin was to represent the movements of the physical robot in the virtual environment. Sensor readings are available through InfluxDB, while Grafana provides a view of the measured data. The virtual motion layer maps joint information onto the Unity model.
+The purpose of the digital twin was to represent the movements of the physical robot in the virtual environment. Sensor readings collected by the ESP32 are transmitted over Wi-Fi to InfluxDB, while Grafana provides a view of the measured data. The virtual motion layer maps joint information onto the Unity model.
 
+<!-- IMAGE SECTION: Unity digital twin images can be added here. See assets/IMAGE_GUIDE.md. -->
 <img src="assets/design/twin-flow.svg" alt="Physical robot sensing, database, joint state and virtual model workflow" width="100%">
 
 <details>
