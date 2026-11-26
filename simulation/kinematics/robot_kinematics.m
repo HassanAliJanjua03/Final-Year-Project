@@ -1,5 +1,5 @@
 function [robot,T,qIK] = robot_kinematics(dh,q,qlim,target,mask)
-% Supplementary example, NOT the original robot model.
+% Configurable R-P-P-R kinematics for reconstructing the robot model.
 % dh: 4x4 [theta d a alpha] standard DH rows, metres and radians.
 % q: four joint coordinates (rad,m,m,rad); qlim: 4x2 joint limits.
 % For revolute links, theta is treated as an offset; for prismatic

@@ -1,11 +1,11 @@
-# How to explore the project
+# Project setup
 
-1. Read the original report and retain its academic attribution. The original RAR archives are still at the repository root.
-2. Review the CAD and prototype photos in the separately supplied media package.
-3. Inspect the archived G-code before running anything. Check firmware, axis mapping, limit switches, motor-driver current limits and feed rates. Do not execute the archived sequence blindly.
-4. Open the supplied SLX models in a compatible MATLAB installation with Simulink, Simscape, Simscape Multibody and applicable electrical/stepper-motor libraries. The models were structurally inspected, not simulated here. Place `robot_tower.slx` on MATLAB's path before running the original plotting script.
-5. For the supplementary MATLAB kinematics example, install Peter Corke's Robotics Toolbox and supply verified DH data and joint limits. The example uses standard DH convention.
-6. In Unity 2019.3.5f1 or a compatible version, inspect the original scripts. The original controller snippet is incomplete. Use the separate replay example with a calibrated joint-state CSV file. It moves only virtual objects.
-7. For the telemetry example, install Python dependencies from its requirements file and set broker/InfluxDB configuration via environment variables. Start with a test broker and bucket; do not expose credentials or public hardware control endpoints.
+My workflow starts with the SolidWorks assembly, continues through the Arduino/GRBL motion-control system and MATLAB modeling, and ends with sensor monitoring and the virtual robot in Unity.
 
-Original binaries and visual materials are listed in [the media inventory](media-inventory.md). Until they are uploaded, only the original root archives, report, documentation and text source are available online.
+1. Read the [project report](../2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.pdf) and inspect the [hardware setup](../hardware/original/README.md).
+2. Open the SLX files in a compatible installation of MATLAB, Simulink, Simscape and Simscape Multibody. The [model index](media-inventory.md) lists the original model filenames.
+3. For the [kinematics and joint response scripts](../simulation/README.md), install Peter Corke's Robotics Toolbox and use verified geometry, joint limits and logging settings.
+4. Configure the [telemetry bridge](../telemetry/README.md) with a test broker and InfluxDB bucket, then create the Grafana panels.
+5. For [Unity 3D](../unity/README.md), configure the virtual joint hierarchy and replay calibrated joint-state measurements in a copy of the scene.
+
+The rebuilt code needs system-specific configuration and runtime validation. The archived G-code is for reference; verify hardware limits and firmware before use.

@@ -1,4 +1,4 @@
-"""Supplementary read-only telemetry bridge. No robot motion commands."""
+"""Read-only MQTT-to-InfluxDB telemetry bridge. No robot motion commands."""
 import json
 import logging
 import math

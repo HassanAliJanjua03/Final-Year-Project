@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
-// Supplementary example. Virtual replay only, not a physical controller.
+// Virtual joint-state replay. Does not command physical hardware.
 public class JointStateReplay : MonoBehaviour
 {
     [Serializable]

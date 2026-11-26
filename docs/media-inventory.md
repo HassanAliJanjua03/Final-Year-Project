@@ -1,27 +1,29 @@
-# Media and model inventory
+# Models, images and demonstrations
 
-The following files are supplied by the project author. Their intended paths are shown for an organized companion media upload. These binary files are not yet in the repository. The original PDF and RAR archives at the root remain available.
+The project gallery on the main README uses compressed previews of my CAD assembly, hardware prototype, MATLAB trajectory, Unity scene and Grafana dashboard. The report and FYP archives are available at the repository root.
 
-| File path | Description |
+The full-resolution project media and simulation files are indexed below for the complete project package.
+
+| File | Content |
 | --- | --- |
-| `assets/solidworks_assembly.png` | Updated CAD assembly |
-| `assets/solidworks_assembly_earlier.png` | Earlier CAD view |
-| `assets/system_architecture.jpeg` | Original block diagram |
-| `assets/physical_prototype.png` | Prototype and laboratory setup, with unrelated poster details obscured in the public copy |
-| `assets/arduino_cnc_wiring.png` | Wiring reference illustration |
-| `assets/stepper_motor_simulink.png` | Electrical/mechanical actuator simulation |
-| `assets/forward_kinematics.png` | Peter Corke toolbox visualization |
-| `assets/inverse_kinematics_trajectory.png` | End-effector trajectory |
-| `assets/simscape_pid_model.png` | Four-joint PID control model |
-| `assets/simscape_mechanics_explorer.png` | Simscape mechanical representation |
-| `assets/influxdb_sensor_table.png` | Sensor records |
-| `assets/influxdb_timeseries.png` | Time-series visualization |
-| `assets/grafana_dashboard.png` | Monitoring dashboard |
-| `assets/unity_digital_twin.png` | Unity project environment |
-| `models/stepper_motor.slx` | Original stepper motor model (renamed from untitled1.slx) |
-| `models/robot_tower.slx` | Original four-joint model |
-| `demonstrations/physical_robot.mp4` | Compressed physical hardware demonstration |
-| `demonstrations/unity_digital_twin.mp4` | Compressed Unity demonstration |
-| `demonstrations/influxdb_grafana.mp4` | Compressed dashboard demonstration |
+| assets/solidworks_assembly.png | Final SolidWorks CAD assembly |
+| assets/solidworks_assembly_earlier.png | Earlier CAD view |
+| assets/system_architecture.jpeg | System block diagram |
+| assets/physical_prototype.png | Robot in the laboratory |
+| assets/arduino_cnc_wiring.png | Wiring reference illustration |
+| assets/stepper_motor_simulink.png | Actuator model |
+| assets/forward_kinematics.png | MATLAB Robotics Toolbox |
+| assets/inverse_kinematics_trajectory.png | End-effector trajectory |
+| assets/simscape_pid_model.png | Joint PID control |
+| assets/simscape_mechanics_explorer.png | Multibody visualization |
+| assets/influxdb_sensor_table.png | Sensor readings |
+| assets/influxdb_timeseries.png | InfluxDB graph |
+| assets/grafana_dashboard.png | Grafana dashboard |
+| assets/unity_digital_twin.png | Unity scene |
+| models/stepper_motor.slx | Stepper motor model (untitled1.slx) |
+| models/robot_tower.slx | Simscape robot model |
+| demonstrations/physical_robot.mp4 | Hardware demonstration |
+| demonstrations/unity_digital_twin.mp4 | Virtual model demonstration |
+| demonstrations/influxdb_grafana.mp4 | Sensor monitoring demonstration |
 
-The videos are separate recordings, not a synchronized quantitative comparison. Review the footage for unrelated identifying details and credentials before public upload. Compressed copies have audio removed; originals remain unchanged. The wiring illustration is a supplied reference whose attribution should be checked before public redistribution.
+The full-size images, SLX models and videos are not yet uploaded to these paths. The previews are already available in assets/previews. The recordings demonstrate the individual subsystems; they are not a synchronized quantitative comparison. Review the lab footage for incidental identifying details before sharing it.

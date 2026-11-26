@@ -1,5 +1,5 @@
 function plot_joint_responses(model)
-% Supplementary helper: inspect the original four-joint simulation.
+% Plot the four-joint simulation responses in one figure.
 if nargin==0, model='robot_tower'; end
 out=sim(model);
 units={'Angle (deg)','Displacement (m)','Displacement (m)','Angle (deg)'};

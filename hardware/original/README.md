@@ -1,3 +1,9 @@
-# Original physical-motion sequence
+# Physical motion control
 
-The supplied G-code is preserved in [robot_tower_motion_sequence.gcode.txt](robot_tower_motion_sequence.gcode.txt) as an archive, not a ready-to-run program. G21 selects mm, G91 selects incremental distance, G1 moves at the selected feed rate and G4 pauses. M3 S values are spindle setpoints in standard GRBL, not universally joint-angle commands. M30 is normally a program-end command, not the beginning of a loop. The fifth iteration reverses the X direction relative to the preceding iterations. Check the original custom setup, firmware and physical travel before constructing an executable sequence. Use an emergency stop, appropriate limit switches and a safe test setup.
+My motion-control setup consists of an Arduino Uno with GRBL, a CNC shield and A4988 drivers connected to the stepper motors.
+
+![Lab prototype](../../assets/previews/physical_prototype.webp)
+
+[Robot tower G-code sequence](robot_tower_motion_sequence.gcode.txt)
+
+The recorded sequence uses incremental X/Z movements (G21, G91 and G1), a feed rate of 500 mm/min and dwell commands. I keep this sequence as a record of the project. M30 is normally a program-end command, and M3 S is a spindle setpoint in standard GRBL, so check the firmware mapping, travel limits, current settings and emergency stop before adapting the sequence to hardware. The fifth iteration reverses the X movement.
