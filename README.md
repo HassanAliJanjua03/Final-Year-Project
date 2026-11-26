@@ -18,14 +18,26 @@ flowchart LR
 - Unity 3D virtual representation of the robot.
 - MATLAB modeling and integration; InfluxDB and Grafana for telemetry and visualization.
 
+## System overview
+
+| Subsystem | Role |
+| --- | --- |
+| Robot tower (R-P-P-R) | Two rotary and two prismatic joints |
+| Arduino / GRBL | Motion-command interface and stepper drive control |
+| Unity 3D | Virtual robot representation |
+| MATLAB | Modeling and integration |
+| InfluxDB / Grafana | Time-series telemetry and monitoring |
+
+The project brings together mechanical design, motion control, virtual modeling and industrial data visualization. The architecture diagram is a functional overview, not a verified communication or wiring schematic.
+
 ## Project files
 
 | File | Purpose |
 | --- | --- |
-| [2118-Design and Development of Digital Twin of a Robot Tower.pdf](2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.pdf) | Original source or design file |
-| [2118-Design and Development of Digital Twin of a Robot Tower.docx](2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.docx) | Original source or design file |
-| [FYP-1.rar](FYP-1.rar) | Original source or design file |
-| [FYP-II.rar](FYP-II.rar) | Original source or design file |
+| [2118-Design and Development of Digital Twin of a Robot Tower.pdf](2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.pdf) | Engineering report (PDF) |
+| [2118-Design and Development of Digital Twin of a Robot Tower.docx](2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.docx) | Editable engineering report |
+| [FYP-1.rar](FYP-1.rar) | Original compressed deliverables |
+| [FYP-II.rar](FYP-II.rar) | Original compressed deliverables |
 
 ## How to explore or reproduce
 
