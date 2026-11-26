@@ -1,0 +1,32 @@
+using UnityEngine;
+
+public class ZSlide_Ctrl : MonoBehaviour
+{
+    [Header("Movement Settings")]
+    public float speed = 0.5f;
+
+    [Header("Control Flags")]
+    public bool Forward = false;
+    public bool Backward = false;
+    public bool Stop = false;
+
+    void Update()
+    {
+        HandleInput();
+    }
+
+    private void HandleInput()
+    {
+        // Move forward along Z+ axis
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Forward = true;
+            Backward = false;
+            Stop = false;
+        }
+
+        // Move backward along Z− axis
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Backward = true;
+            Forward = false;

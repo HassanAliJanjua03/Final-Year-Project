@@ -1,0 +1,3 @@
+# Simulation and control
+
+[plotting.m](plotting.m) is the original joint-response plotting script supplied by the project author. It calls `sim('robot_tower')` and plots all four logged joints, with angles in degrees and displacements in metres according to its labels. The two SLX binaries were supplied separately and are listed in [the media inventory](../docs/media-inventory.md). See the [extracted PID settings](../docs/engineering-notes.md#pid-controller-settings) and the [supplementary plotting helper](../examples/matlab/plot_joint_responses.m). No MATLAB run was performed during this update.

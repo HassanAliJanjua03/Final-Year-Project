@@ -1,0 +1,41 @@
+G21 G91
+
+(G-code loop for 5 iterations)
+M30 (Start Loop)
+
+(Iteration 1)
+G1 Z-20 X40 F500
+M3 S1
+G4 P1
+G1 Z20 X-40 F500
+G4 P1
+
+(Iteration 2)
+G1 Z-20 X40 F500
+M3 S180
+G4 P1
+G1 Z20 X-40 F500
+G4 P1
+
+(Iteration 3)
+G1 Z-20 X40 F500
+M3 S1
+G4 P1
+G1 Z20 X-40 F500
+G4 P1
+
+(Iteration 4)
+G1 Z-20 X40 F500
+M3 S180
+G4 P1
+G1 Z20 X-40 F500
+G4 P1
+
+(Iteration 5)
+G1 Z-20 X-40 F500
+M3 S1
+G4 P1
+G1 Z20 X40 F500
+G4 P1
+
+M2 (End Loop)

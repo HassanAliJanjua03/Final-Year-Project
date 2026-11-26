@@ -1,0 +1,3 @@
+# Original physical-motion sequence
+
+The supplied G-code is preserved in [robot_tower_motion_sequence.gcode.txt](robot_tower_motion_sequence.gcode.txt) as an archive, not a ready-to-run program. G21 selects mm, G91 selects incremental distance, G1 moves at the selected feed rate and G4 pauses. M3 S values are spindle setpoints in standard GRBL, not universally joint-angle commands. M30 is normally a program-end command, not the beginning of a loop. The fifth iteration reverses the X direction relative to the preceding iterations. Check the original custom setup, firmware and physical travel before constructing an executable sequence. Use an emergency stop, appropriate limit switches and a safe test setup.

@@ -1,0 +1,5 @@
+# Unity — supplementary calibrated joint replay
+
+Attach `JointStateReplay.cs` to an empty GameObject in a copy of the robot scene. Assign four joint transforms and local axes from the CAD hierarchy. Set measured joint limits and a metres-to-Unity-units scale. Assign a TextAsset CSV with header `time_s,q1_rad,q2_m,q3_m,q4_rad` and ascending relative timestamps (first timestamp 0). The recorded joint values are absolute offsets relative to the scene's calibrated rest pose. The example interpolates positions and angles between samples, clamps configured limits and stops at the last sample. It does not retrieve raw IMU data, control physical hardware or establish the original live synchronization accuracy.
+
+The original Z-axis scripts are kept under [unity/original](../../unity/original/README.md). To implement live synchronization, expose calibrated, timestamped joint state through an authenticated service, validate freshness and coordinate conventions, then feed the same virtual-joint mapping. Never put InfluxDB admin credentials into Unity builds. Test in a copy of the scene before using.
