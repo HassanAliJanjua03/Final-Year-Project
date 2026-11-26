@@ -1,6 +1,6 @@
 # Models, images and demonstrations
 
-The project gallery on the main README uses compressed previews of my CAD assembly, hardware prototype, MATLAB trajectory, Unity scene and Grafana dashboard. The report and FYP archives are available at the repository root.
+The project gallery on the main README uses compressed previews of my CAD assembly, hardware prototype, MATLAB trajectory, Unity scene, Grafana dashboard, hardware architecture, simulation models and InfluxDB records. The report and FYP archives are available at the repository root.
 
 The full-resolution project media and simulation files are indexed below for the complete project package.
 

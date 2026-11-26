@@ -77,6 +77,8 @@ Once the design was ready, I moved to the physical prototype. The motion-control
 | Leadscrew and linear mechanisms | Rotary-to-linear motion |
 | Sensors and telemetry controller | Movement and environmental data acquisition |
 
+<p align="center"><img src="assets/previews/hardware_overview.webp" width="316" alt="Project block diagram and Arduino CNC wiring reference"><br><em>System architecture and motor driver wiring</em></p>
+
 [Hardware notes and G-code](hardware/original/README.md)
 
 The G-code sequence combines incremental X/Z moves, feed-rate control and dwell commands. The archived sequence is documented for inspection, not blind execution on another machine.
@@ -107,6 +109,8 @@ The kinematic chain is represented as the product of the four homogeneous transf
 
 I used the mechanical model in Simscape Multibody and applied a separate PID loop to each of the four joints. Joint 1 and Joint 4 are rotational, while Joint 2 and Joint 3 are translational. I logged their responses to analyze the motion in MATLAB.
 
+<p align="center"><img src="assets/previews/modeling_overview.webp" width="438" alt="Stepper motor Simulink model, forward kinematics, PID block diagram and Simscape visualization"><br><em>Actuator model · Forward kinematics · Four-joint PID model · Mechanics Explorer</em></p>
+
 [MATLAB kinematics](simulation/kinematics/robot_kinematics.m) · [Joint plotting](simulation/plotting.m) · [Combined response plotting](simulation/plot_joint_responses.m) · [PID settings and engineering notes](docs/engineering-notes.md#pid-controller-settings)
 
 ## 4. Sensor data, InfluxDB and Grafana
@@ -120,6 +124,8 @@ The next step was to capture what was happening on the real robot. Sensor readin
 | Acceleration | acc_x, acc_y, acc_z |
 | Angular velocity | gyro_x, gyro_y, gyro_z |
 | Temperature | temperature |
+
+<p align="center"><img src="assets/previews/influxdb_overview.webp" width="438" alt="InfluxDB table and sensor time-series graph"><br><em>Sensor records and historical trends in InfluxDB</em></p>
 
 The architecture also identifies force and pressure sensing. The dashboard makes it easier to observe trends and detect changes in sensor behavior while the robot is operating.
 
