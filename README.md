@@ -1,169 +1,305 @@
 <div align="center">
 
-# Digital Twin of a 4-DOF Robot Tower
+<img src="assets/design/cover.svg" alt="Digital Twin of a 4-DOF Robot Tower — Hassan Ali Janjua" width="100%">
 
-### From a SolidWorks assembly to a sensor-driven virtual robot
+<a href="#mechanical-design"><img alt="SolidWorks" src="https://img.shields.io/badge/SolidWorks-CAD-cb2635?style=for-the-badge"></a>
+<a href="#physical-robot"><img alt="Arduino" src="https://img.shields.io/badge/Arduino-GRBL-00878F?style=for-the-badge&logo=arduino&logoColor=white"></a>
+<a href="#modeling-control"><img alt="MATLAB" src="https://img.shields.io/badge/MATLAB-Simscape-17659A?style=for-the-badge"></a>
+<a href="#data-acquisition"><img alt="InfluxDB" src="https://img.shields.io/badge/InfluxDB-Data-1765cf?style=for-the-badge&logo=influxdb&logoColor=white"></a>
+<a href="#data-acquisition"><img alt="Grafana" src="https://img.shields.io/badge/Grafana-Dashboard-f46800?style=for-the-badge&logo=grafana&logoColor=white"></a>
+<a href="#unity-3d-digital-twin"><img alt="Unity" src="https://img.shields.io/badge/Unity-3D-222222?style=for-the-badge&logo=unity&logoColor=white"></a>
 
-**Hassan Ali Janjua · Final Year Project · Mechatronics Engineering · Air University, Islamabad**
+**Bachelor's Final Year Project · Mechatronics Engineering · Air University, Islamabad**
 
-![SolidWorks](https://img.shields.io/badge/CAD-SolidWorks-cb2635?style=flat-square)
-![MATLAB](https://img.shields.io/badge/Modeling-MATLAB%20%2F%20Simscape-1d6591?style=flat-square)
-![Arduino](https://img.shields.io/badge/Hardware-Arduino%20%2F%20GRBL-00878F?style=flat-square&logo=arduino&logoColor=white)
-![Unity](https://img.shields.io/badge/Digital%20Twin-Unity%203D-222222?style=flat-square&logo=unity)
-![InfluxDB](https://img.shields.io/badge/Database-InfluxDB-1765cf?style=flat-square&logo=influxdb&logoColor=white)
-![Grafana](https://img.shields.io/badge/Monitoring-Grafana-f46800?style=flat-square&logo=grafana&logoColor=white)
+[Project overview](#the-idea-behind-my-project) · [System architecture](#how-i-connected-everything) · [Source code](#explore-the-repository) · [Full report](2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.pdf)
 
-[Project report](2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.pdf) · [How it works](#how-the-system-works) · [MATLAB & Simscape](#3-mathematical-modeling-and-control) · [Digital twin](#5-digital-twin-in-unity-3d) · [Code](#repository-guide)
-
-</div>
+<br>
 
 <table>
 <tr>
-<td align="center" width="50%"><img src="assets/previews/physical_prototype.webp" alt="Physical robot tower in the laboratory" width="300"><br><b>Physical robot</b><br>Laboratory implementation</td>
-<td align="center" width="50%"><img src="assets/previews/solidworks_assembly.webp" alt="SolidWorks robot tower assembly" width="228"><br><b>Mechanical design</b><br>SolidWorks CAD assembly</td>
-</tr>
-<tr>
-<td align="center"><img src="assets/previews/unity_digital_twin.webp" width="300" alt="Unity digital twin scene"><br><b>Virtual robot</b><br>Unity 3D</td>
-<td align="center"><img src="assets/previews/grafana_dashboard.webp" width="300" alt="Grafana sensor dashboard"><br><b>Live telemetry</b><br>Grafana dashboard</td>
+<td align="center" width="50%">
+<a href="assets/previews/physical_prototype.webp"><img src="assets/previews/physical_prototype.webp" alt="My physical robot and laboratory setup" width="100%"></a>
+<br><b>THE PHYSICAL ROBOT</b><br><sub>Fabricated prototype · Motion control · Laboratory setup</sub>
+</td>
+<td align="center" width="50%">
+<a href="assets/previews/unity_digital_twin.webp"><img src="assets/previews/unity_digital_twin.webp" alt="My Unity 3D virtual robot" width="100%"></a>
+<br><b>THE VIRTUAL ROBOT</b><br><sub>SolidWorks geometry · Unity scene · C# control</sub>
+</td>
 </tr>
 </table>
 
-## About the project
+<img src="assets/design/project-specs.svg" alt="4 DOF, R-P-P-R configuration, four stepper motors, four PID control loops" width="100%">
 
-For my final-year project, I wanted to take a robotic system beyond its physical structure and connect it to a virtual environment. The challenge was not just to build a 3D model, but to bring mechanical design, motion control, sensor data and software together so that the virtual model could follow the physical robot.
+</div>
 
-I worked on the mechanical design, the hardware and motion-control setup, MATLAB modeling, the IoT monitoring pipeline and the Unity environment. The result was a four-degree-of-freedom robotic prototype with a corresponding virtual model and a dashboard for observing sensor activity.
+## The idea behind my project
 
-| 4 DOF | 2 revolute + 2 prismatic joints | 4 stepper motors | 4 joint PID controllers |
-| :---: | :---: | :---: | :---: |
+I wanted to explore how a real robotic mechanism could be connected to its digital representation. Rather than stopping at a CAD model or a simulation, I worked on bringing the physical robot, its mathematical model and real-time sensor readings into the same system.
 
-## How the system works
+I started with a four-axis robot tower in SolidWorks, moved on to the hardware and motion control, and used MATLAB to study its kinematics and joint behavior. The final part was connecting the physical system to a virtual robot in Unity 3D, with InfluxDB and Grafana handling data storage and monitoring.
 
-![Robot tower system overview](docs/architecture.svg)
+**The objective:** make the virtual model follow the activity of the physical robot, while making its sensor readings accessible through a monitoring dashboard.
 
-```mermaid
-flowchart LR
-  CAD[SolidWorks CAD] --> P[Physical robot]
-  CAD --> U[Unity 3D model]
-  CAD --> M[MATLAB / Simscape]
-  G[G-code / GRBL] --> P
-  P --> S[Sensor microcontroller]
-  S --> Q[MQTT]
-  Q --> D[(InfluxDB)]
-  D --> F[Grafana dashboard]
-  D --> T[Joint-state processing]
-  T --> U
+## How I connected everything
+
+<img src="docs/architecture.svg" alt="System architecture showing CAD, physical motion control, data acquisition, InfluxDB, Grafana and Unity" width="100%">
+
+There are three connected parts to the system. The first is the physical robot and its motion-control hardware; the second is the data acquisition and monitoring pipeline; the third is the virtual model. MATLAB and Simscape provide the mathematical and dynamic modeling behind the robot.
+
+| Physical system | Data acquisition | Virtual system |
+| :--- | :--- | :--- |
+| SolidWorks assembly, four motors, Arduino Uno, GRBL and CNC shield | Sensor microcontroller, MQTT, InfluxDB and Grafana | Imported CAD geometry, C# movement scripts and virtual joint control |
+
+---
+
+<a name="mechanical-design"></a>
+
+## 01 / Mechanical design
+
+### SolidWorks — designing the robot tower
+
+I began by designing the robot's mechanical assembly. The vertical tower and horizontal axis provide two linear movements, while the base and tool-end joints provide rotational movement. I chose an R-P-P-R configuration to combine linear positioning with rotary motion.
+
+<table>
+<tr>
+<td width="48%" align="center"><a href="assets/previews/solidworks_assembly.webp"><img src="assets/previews/solidworks_assembly.webp" width="100%" alt="Final SolidWorks CAD assembly"></a><br><sub>Final mechanical assembly</sub></td>
+<td width="52%" valign="top">
+
+<b>Mechanical configuration</b>
+
+<br><br>
+<b>J1 · R</b> — Base rotation<br>
+<b>J2 · P</b> — Vertical translation<br>
+<b>J3 · P</b> — Horizontal translation<br>
+<b>J4 · R</b> — Tool-end rotation
+
+<br><br>
+
+The assembly includes a supporting base, vertical tower, linear carriages, stepper-driven mechanisms and a gripper. The same geometry was used as the starting point for the virtual model and multibody representation.
+
+</td>
+</tr>
+</table>
+
+<img src="assets/design/joint-map.svg" alt="Conceptual R-P-P-R joint map" width="100%">
+
+<details>
+<summary><b>Design considerations and coordinate conventions</b></summary>
+
+The motion of the mechanism depends on the coordinate frames assigned to each joint. I distinguish between rotational joint coordinates in radians and prismatic joint coordinates in metres when working with mathematical models. The conceptual joint map above is not a dimensioned manufacturing drawing. Measured dimensions and joint limits must be taken from the CAD assembly for numerical reproduction.
+
+</details>
+
+<a name="physical-robot"></a>
+
+## 02 / Physical robot
+
+### From the CAD assembly to hardware
+
+I used an Arduino Uno running GRBL for the robot's motion-control side. The CNC shield connects the A4988 drivers to the stepper motors, while a second microcontroller is shown in my system design for acquiring sensor readings.
+
+<a href="assets/previews/hardware_overview.webp"><img src="assets/previews/hardware_overview.webp" alt="Original project block diagram and motor wiring reference" width="100%"></a>
+
+<sub>System block diagram and Arduino / CNC shield wiring reference.</sub>
+
+| Component | Role in the robot |
+| :--- | :--- |
+| Arduino Uno + GRBL | Interpret G-code and generate motion commands |
+| CNC shield + A4988 | Interface between the controller and stepper motors |
+| Four stepper motors | Joint actuation |
+| Leadscrew and linear carriages | Convert motor rotation into linear displacement |
+| Sensor microcontroller | Acquire and transmit sensor readings |
+
+<details>
+<summary><b>View the motion-control sequence</b></summary>
+
+The sequence I used includes incremental X/Z motion, a feed rate of 500 mm/min and dwell commands.
+
+```gcode
+G21 G91
+G1 Z-20 X40 F500
+M3 S1
+G4 P1
+G1 Z20 X-40 F500
+G4 P1
 ```
 
-The two paths are complementary: G-code drives the physical robot, while measured data travels through the IoT pipeline to monitor and represent its activity in the virtual environment.
+[Full G-code sequence](hardware/original/robot_tower_motion_sequence.gcode.txt) · [Hardware notes and firmware conventions](hardware/original/README.md)
 
-## 1. Mechanical design in SolidWorks
+The archived sequence needs to be checked against the actual firmware and joint mapping before running it on hardware. Standard GRBL treats M3 S as a spindle command and M30 as program end.
 
-I started with the mechanical assembly. The robot has an R-P-P-R configuration: a rotating base, vertical translation, horizontal translation and a final rotary joint at the tool end. The tower incorporates linear carriages, stepper-driven mechanisms, a support base and a gripper.
+</details>
 
-<p align="center"><img src="assets/previews/solidworks_assembly.webp" alt="Robot tower CAD design" width="228"></p>
+<a name="modeling-control"></a>
 
-The SolidWorks geometry also provided the starting point for the Unity 3D model and the mechanical representation in Simscape Multibody.
+## 03 / Modeling & control
 
-## 2. Physical hardware and motion control
+### Stepper motor, kinematics and PID control in MATLAB
 
-Once the design was ready, I moved to the physical prototype. The motion-control system used an Arduino Uno running GRBL, a CNC shield, A4988 drivers and four stepper motors. A separate microcontroller handles sensor data acquisition in the system architecture.
+I wanted to understand the response of the robot before relying only on physical movement. For this, I divided the MATLAB work into actuator modeling, kinematics and joint-level control.
 
-| Hardware | Role |
-| --- | --- |
-| Arduino Uno + GRBL | G-code interpretation and motion control |
-| CNC shield + A4988 | Stepper motor driver interface |
-| Four stepper motors | Joint actuation |
-| Leadscrew and linear mechanisms | Rotary-to-linear motion |
-| Sensors and telemetry controller | Movement and environmental data acquisition |
+<a href="assets/previews/modeling_overview.webp"><img src="assets/previews/modeling_overview.webp" alt="My Simulink stepper motor, Robotics Toolbox and Simscape Multibody models" width="100%"></a>
 
-<p align="center"><img src="assets/previews/hardware_overview.webp" width="316" alt="Project block diagram and Arduino CNC wiring reference"><br><em>System architecture and motor driver wiring</em></p>
+<sub>My actuator model, forward kinematics, four-joint control system and Mechanics Explorer visualization.</sub>
 
-[Hardware notes and G-code](hardware/original/README.md)
+#### Stepper motor model
 
-The G-code sequence combines incremental X/Z moves, feed-rate control and dwell commands. The archived sequence is documented for inspection, not blind execution on another machine.
-
-## 3. Mathematical modeling and control
-
-### Stepper motor simulation
-
-Before analyzing the complete robot, I modeled the actuator in Simulink to study electrical excitation and mechanical response: voltage, current, torque, angular velocity and angular position. The mechanical transfer function shown in my model is
+I modeled the electrical and mechanical behavior of the actuator in Simulink, observing voltage, current, torque, angular velocity and angular displacement. The inertial transfer function in my model is:
 
 ```math
-G(s)=\frac{1}{2.327\times10^{-6}s^2}
+G(s)=\frac{\Theta(s)}{T(s)}=\frac{1}{2.327\times10^{-6}s^2}
 ```
 
-### Forward and inverse kinematics
+#### Forward and inverse kinematics
 
-Using Peter Corke's Robotics Toolbox, I modeled the robot's joint configuration and end-effector motion. Forward kinematics determines the pose for a given joint configuration; inverse kinematics finds joint coordinates that satisfy the desired reachable pose.
+Using Peter Corke's Robotics Toolbox, I modeled the R-P-P-R configuration and analyzed the end-effector trajectory. Forward kinematics gives the pose from the joint coordinates, while inverse kinematics finds a joint configuration for a reachable target.
 
-<p align="center"><img src="assets/previews/inverse_kinematics_trajectory.webp" alt="MATLAB three-dimensional end-effector trajectory" width="300"><br><em>End-effector trajectory in MATLAB</em></p>
-
-The kinematic chain is represented as the product of the four homogeneous transformations.
+<table>
+<tr>
+<td width="54%"><a href="assets/previews/inverse_kinematics_trajectory.webp"><img src="assets/previews/inverse_kinematics_trajectory.webp" alt="MATLAB end-effector trajectory" width="100%"></a><br><sub>End-effector trajectory in MATLAB</sub></td>
+<td width="46%" valign="top"><b>My modeling approach</b><br><br>1. Assign link coordinate frames.<br>2. Define the revolute and prismatic joints.<br>3. Compute homogeneous transformations.<br>4. Evaluate the end-effector pose and trajectory.<br><br><a href="simulation/kinematics/robot_kinematics.m">Explore MATLAB implementation →</a></td>
+</tr>
+</table>
 
 ```math
 {}^0T_4=A_1(q_1)A_2(q_2)A_3(q_3)A_4(q_4)
 ```
 
-### Simscape Multibody and PID control
+#### Simscape Multibody & closed-loop PID
 
-I used the mechanical model in Simscape Multibody and applied a separate PID loop to each of the four joints. Joint 1 and Joint 4 are rotational, while Joint 2 and Joint 3 are translational. I logged their responses to analyze the motion in MATLAB.
+I used the mechanical model in Simscape Multibody to study the response of the four joints. Each joint has a PID loop. I logged the position signals and plotted their responses in MATLAB.
 
-<p align="center"><img src="assets/previews/modeling_overview.webp" width="438" alt="Stepper motor Simulink model, forward kinematics, PID block diagram and Simscape visualization"><br><em>Actuator model · Forward kinematics · Four-joint PID model · Mechanics Explorer</em></p>
+<details>
+<summary><b>Controller settings and MATLAB analysis</b></summary>
 
-[MATLAB kinematics](simulation/kinematics/robot_kinematics.m) · [Joint plotting](simulation/plotting.m) · [Combined response plotting](simulation/plot_joint_responses.m) · [PID settings and engineering notes](docs/engineering-notes.md#pid-controller-settings)
+These are the saved controller settings from my Simscape model, rounded for readability. Block names are retained because their exact association to joint numbers has not been independently checked.
 
-## 4. Sensor data, InfluxDB and Grafana
+| Controller block | Kp | Ki | Kd |
+| --- | ---: | ---: | ---: |
+| PID Controller | 2.0337 | 1420.3015 | 0.0006523 |
+| PID Controller1 | 5,780,742.5542 | 22,528,675.7526 | 367,897.4903 |
+| PID Controller2 | 12,391,278.5338 | 94,475,183.8411 | 395,685.4124 |
+| PID Controller3 | 2.0337 | 1420.3015 | 0.0006523 |
 
-The next step was to capture what was happening on the real robot. Sensor readings were transmitted through the telemetry system and stored as timestamped records in InfluxDB. I created a Grafana dashboard to monitor the temperature, acceleration and gyroscope signals.
+These are simulation settings, not directly transferable physical hardware gains.
 
-<p align="center"><img src="assets/previews/grafana_dashboard.webp" alt="Grafana monitoring dashboard" width="300"><br><em>My Grafana dashboard during sensor monitoring</em></p>
+[Full PID parameters](docs/engineering-notes.md#pid-controller-settings) · [Original joint plots script](simulation/plotting.m) · [Combined joint plotting](simulation/plot_joint_responses.m)
 
-| Measurements | Data fields |
+</details>
+
+[**Explore the MATLAB and Simscape module →**](simulation/README.md)
+
+<a name="data-acquisition"></a>
+
+## 04 / Data Acquisition
+
+### From physical sensor readings to InfluxDB and Grafana
+
+Once the robot could move, the next task was to observe what was happening on the physical system. I used the sensor data acquisition architecture to collect readings, store them in InfluxDB and display them through a Grafana dashboard.
+
+<table>
+<tr>
+<td width="50%" align="center"><a href="assets/previews/influxdb_overview.webp"><img src="assets/previews/influxdb_overview.webp" alt="InfluxDB recorded data and time-series plot" width="100%"></a><br><b>InfluxDB</b><br><sub>Timestamped sensor records</sub></td>
+<td width="50%" align="center"><a href="assets/previews/grafana_dashboard.webp"><img src="assets/previews/grafana_dashboard.webp" alt="My real-time Grafana dashboard" width="100%"></a><br><b>Grafana</b><br><sub>Sensor readings, trends and temperature gauge</sub></td>
+</tr>
+</table>
+
+| Signal | Data fields | Purpose |
+| --- | --- | --- |
+| Acceleration | `acc_x`, `acc_y`, `acc_z` | Observe changes in linear acceleration |
+| Angular velocity | `gyro_x`, `gyro_y`, `gyro_z` | Observe rotational activity |
+| Temperature | `temperature` | Monitor temperature |
+
+The system architecture also identifies force and pressure sensing. The screenshots above show the acceleration, angular-rate and temperature data available in my monitoring interface.
+
+<details>
+<summary><b>Data pipeline, message structure and configuration</b></summary>
+
+```mermaid
+flowchart LR
+    A["Physical robot"] --> B["Sensors and microcontroller"]
+    B --> C["MQTT"]
+    C --> D[("InfluxDB")]
+    D --> E["Grafana"]
+    D --> F["Calibrated joint state"]
+    F --> G["Unity"]
+```
+
+For reproducibility, the [data acquisition module](data-acquisition/README.md) includes the MQTT-to-InfluxDB bridge, input validation and environment-based configuration. The sample records in the test file are synthetic and are not experimental measurements.
+
+</details>
+
+[**Explore the Data Acquisition module →**](data-acquisition/README.md)
+
+<a name="unity-3d-digital-twin"></a>
+
+## 05 / Unity 3D digital twin
+
+### Connecting the physical robot to its virtual representation
+
+I imported my SolidWorks model into Unity 3D and organized its components into pivots, slides and control objects. I used C# to control rotational and translational movement, including virtual limit-switch behavior.
+
+The purpose of the digital twin was to represent the movements of the physical robot in the virtual environment. Sensor readings are available through InfluxDB, while Grafana provides a view of the measured data. The virtual motion layer maps joint information onto the Unity model.
+
+<img src="assets/design/twin-flow.svg" alt="Physical robot sensing, database, joint state and virtual model workflow" width="100%">
+
+<details>
+<summary><b>How the C# scripts are organized</b></summary>
+
+| Script | Function |
 | --- | --- |
-| Acceleration | acc_x, acc_y, acc_z |
-| Angular velocity | gyro_x, gyro_y, gyro_z |
-| Temperature | temperature |
+| [Z_Slide.cs](unity/original/Z_Slide.cs) | Translation along the Unity Z-axis and limit-switch triggers |
+| [ZSlide_Ctrl.cs.txt](unity/original/ZSlide_Ctrl.cs.txt) | Archived movement-direction controller excerpt |
+| [JointStateReplay.cs](unity/JointStateReplay.cs) | Interpolation of calibrated joint-state records into virtual motion |
 
-<p align="center"><img src="assets/previews/influxdb_overview.webp" width="438" alt="InfluxDB table and sensor time-series graph"><br><em>Sensor records and historical trends in InfluxDB</em></p>
+The replay controller uses joint positions and angles, not raw accelerometer readings as positions. Absolute displacement estimation from inertial data requires a suitable estimator or additional position feedback.
 
-The architecture also identifies force and pressure sensing. The dashboard makes it easier to observe trends and detect changes in sensor behavior while the robot is operating.
+</details>
 
-[Telemetry setup and MQTT-to-InfluxDB code](telemetry/README.md)
-
-## 5. Digital twin in Unity 3D
-
-This was the part where the mechanical and software work came together. I imported my SolidWorks model into Unity 3D (2019.3.5f1), organized its components into pivots and sliding assemblies, and used C# scripts to control the virtual joints.
-
-<p align="center"><img src="assets/previews/unity_digital_twin.webp" alt="Robot tower in Unity editor" width="300"><br><em>My Unity scene with the robot hierarchy and axis-control scripts</em></p>
-
-The goal was for the virtual robot to mimic the physical robot's motion based on sensor data. InfluxDB stores the measurements, Grafana makes the data visible, and the Unity control layer maps joint information to the virtual model.
-
-For reliable position tracking, raw accelerometer and gyroscope data need calibration and suitable state estimation or position feedback. The joint replay code uses calibrated positions and angles rather than treating acceleration as a position signal.
-
-[Unity scripts and setup](unity/README.md) · [Joint-state replay](unity/JointStateReplay.cs)
-
-## 6. What I learned from building this system
-
-The most interesting part was seeing how every engineering decision affects the rest of the system: the CAD geometry determines the joint structure, the control system moves the mechanism, and the sensors and data pipeline provide the information needed to represent its behavior virtually.
-
-This project gave me practical experience connecting robotics, numerical simulation, embedded control, industrial IoT and 3D software into one system.
-
-## Repository guide
-
-| Directory | What's inside |
-| --- | --- |
-| [assets](assets) | Project images and previews |
-| [hardware](hardware/original/README.md) | Robot motion commands and hardware notes |
-| [simulation](simulation/README.md) | MATLAB kinematics, Simscape response analysis and model guide |
-| [telemetry](telemetry/README.md) | MQTT and InfluxDB data integration |
-| [unity](unity/README.md) | C# motion-control and virtual joint replay |
-| [docs](docs/engineering-notes.md) | Engineering calculations, PID settings and project resources |
-
-[Full project report (PDF)](2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.pdf) · [FYP I](FYP-1.rar) · [FYP II](FYP-II.rar) · [Model and demonstration index](docs/media-inventory.md) · [Setup guide](docs/reproduction.md)
-
-The repository includes archived project code and later reconstruction of the kinematics, telemetry and replay modules to make the workflow easier to explore. These modules require configuration and testing on the original system. The report retains the project's academic attribution.
+[**Explore the Unity 3D module →**](unity/README.md)
 
 ---
 
-**Hassan Ali Janjua** · [Engineering portfolio](https://github.com/HassanAliJanjua03)
+## 06 / Project outcome
+
+The project brought together the mechanical design, a physical robotic prototype, mathematical modeling, joint-level control, sensor data acquisition, a monitoring dashboard and a virtual robotic model.
+
+What I found most valuable was the integration: designing the mechanism was only one part of the task. The coordinate conventions, motor commands, sensor measurements and virtual motion all needed to make sense together.
+
+For further development, I would focus on calibrated joint-position feedback and measuring physical-to-virtual synchronization error and delay. These are important metrics for evaluating a digital twin; I have not reported numerical results for them without measured evidence.
+
+## Explore the repository
+
+| Module | What to find |
+| --- | --- |
+| [Mechanical design & image gallery](assets) | CAD, prototype, simulations, dashboard and virtual model |
+| [Hardware](hardware/original/README.md) | Motion sequence and electrical control notes |
+| [MATLAB & Simscape](simulation/README.md) | Kinematics and joint-response scripts |
+| [Data Acquisition](data-acquisition/README.md) | Sensor-data bridge, validation and setup |
+| [Unity 3D](unity/README.md) | Virtual motion and joint-state replay |
+| [Engineering notes](docs/engineering-notes.md) | Actuator model, kinematics and PID parameters |
+| [Setup guide](docs/reproduction.md) | Software and reproduction workflow |
+| [Models and demonstration index](docs/media-inventory.md) | Project images, simulation models and recordings |
+
+<details>
+<summary><b>Original project report and deliverables</b></summary>
+
+- [Final Year Project report (PDF)](2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.pdf)
+- [Editable report (DOCX)](2118-Design%20and%20Development%20of%20Digital%20Twin%20of%20a%20Robot%20Tower.docx)
+- [FYP I deliverables](FYP-1.rar)
+- [FYP II deliverables](FYP-II.rar)
+
+The kinematics, data acquisition and replay code includes later reconstructed modules for exploring the workflow. These need system-specific configuration and runtime validation. The report retains the original project attribution.
+
+</details>
+
+<div align="center">
+
+---
+
+**Hassan Ali Janjua**  
+Mechatronics Engineering · Robotics · Control Systems · Industrial IoT · Digital Twins
+
+[My engineering portfolio](https://github.com/HassanAliJanjua03)
+
+</div>

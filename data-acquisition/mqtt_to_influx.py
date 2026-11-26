@@ -1,33 +1,20 @@
-"""Read-only MQTT-to-InfluxDB telemetry bridge. No robot motion commands."""
-import json
+"""Read-only MQTT-to-InfluxDB data acquisition bridge. No robot motion commands."""
 import logging
-import math
 import os
 
 import paho.mqtt.client as mqtt
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-FIELDS = ("acc_x", "acc_y", "acc_z", "gyro_x", "gyro_y", "gyro_z", "temperature")
+from sensor_data import parse_sensor_data
 logging.basicConfig(level=logging.INFO)
 
 def make_point(payload):
-    data = json.loads(payload)
-    if not isinstance(data, dict):
-        raise ValueError("JSON object required")
+    fields, stamp = parse_sensor_data(payload)
     point = Point("robot_sensors")
-    count = 0
-    for name in FIELDS:
-        value = data.get(name)
-        if isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value):
-            point.field(name, float(value))
-            count += 1
-    if not count:
-        raise ValueError("No valid sensor values")
-    stamp = data.get("timestamp_ns")
+    for name, value in fields.items():
+        point.field(name, value)
     if stamp is not None:
-        if type(stamp) is not int or stamp <= 0 or stamp > 2**63 - 1:
-            raise ValueError("Expected positive Unix nanoseconds")
         point.time(stamp, WritePrecision.NS)
     return point
 

@@ -1,0 +1,15 @@
+# Local credentials and Python build files
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+# MATLAB temporary files
+*.asv
+slprj/
+# Unity generated files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
