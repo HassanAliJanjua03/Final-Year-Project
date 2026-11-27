@@ -12,7 +12,15 @@ flowchart LR
 
 My original system diagram identifies MQTT. The Python bridge below provides a configurable MQTT-based way to reproduce the data acquisition pipeline; the exact original ESP32 firmware and transport settings are not included.
 
-![Grafana dashboard](../assets/previews/grafana_dashboard.webp)
+![ESP32 data acquisition setup](../assets/images/esp32_setup.png)
+
+![InfluxDB sensor records](../assets/images/influxdb_sensor_table.png)
+
+![InfluxDB time-series graph](../assets/images/influxdb_timeseries.png)
+
+![Grafana dashboard](../assets/images/grafana_dashboard.png)
+
+[Data acquisition demonstration](../demonstrations/influxdb_grafana.mp4)
 
 ## Data format
 

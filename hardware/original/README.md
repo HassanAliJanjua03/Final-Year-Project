@@ -2,7 +2,13 @@
 
 My motion-control setup consists of an Arduino Uno with GRBL, a CNC shield and A4988 drivers connected to the stepper motors. I used a separate ESP32 for sensor data acquisition and Wi-Fi transmission to InfluxDB. See the [Data Acquisition module](../../data-acquisition/README.md).
 
-![Lab prototype](../../assets/previews/physical_prototype.webp)
+![Lab prototype](../../assets/images/physical_prototype.png)
+
+![Arduino CNC wiring](../../assets/images/arduino_cnc_wiring.png)
+
+![ESP32 data acquisition setup](../../assets/images/esp32_setup.png)
+
+[Physical robot demonstration](../../demonstrations/physical_robot.mp4)
 
 [Robot tower G-code sequence](robot_tower_motion_sequence.gcode.txt)
 

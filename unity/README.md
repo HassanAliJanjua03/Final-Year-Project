@@ -1,6 +1,8 @@
 # Unity 3D digital twin
 
-![Unity digital twin environment](../assets/previews/unity_digital_twin.webp)
+![Unity digital twin environment](../assets/images/unity_digital_twin.png)
+
+[Unity digital twin demonstration](../demonstrations/unity_digital_twin.mp4)
 
 I imported the SolidWorks model into Unity 2019.3.5f1 and organized the pivots, slides and control objects to represent the four robotic joints.
 
