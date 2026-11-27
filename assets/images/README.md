@@ -20,4 +20,4 @@ Upload actual PNG pictures here with these exact filenames. All picture slots ar
 | Grafana dashboard | `grafana_dashboard.png` |
 | Unity 3D digital twin | `unity_digital_twin.png` |
 
-[Upload pictures](https://github.com/HassanAliJanjua03/Final-Year-Project/upload/main/assets/images) · [Full instructions](../IMAGE_GUIDE.md)
+[Upload pictures](https://github.com/HassanAliJanjua03/Final-Year-Project/upload/main/assets/images) ·
