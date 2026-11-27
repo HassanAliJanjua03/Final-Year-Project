@@ -121,7 +121,7 @@ I used an Arduino Uno running GRBL for the robot's motion-control side. The CNC 
 </table>
 
 <p align="center">
-<a href="assets/images/physical_prototype.png"><img src="assets/images/physical_prototype.png" alt="Physical robot prototype" width="100%"></a><br><sub>Physical robot prototype</sub>
+<a href="assets/images/physical_prototype.png"><img src="assets/images/physical_hardware.png" alt="Physical robot prototype" width="100%"></a><br><sub>Physical robot prototype</sub>
 </p>
 
 | Component | Role in the robot |
