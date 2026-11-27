@@ -27,4 +27,4 @@ My project photographs and recordings have predefined upload paths. Uploading th
 
 The SLX model files are also not uploaded to these paths. The original reports and FYP archives remain at the repository root. The recordings demonstrate the individual subsystems, not a synchronized quantitative comparison.
 
-[Upload guide](../assets/IMAGE_GUIDE.md) · [Image folder](../assets/images) · [Demonstration folder](../demonstrations)
+[Upload guide](../assets/IMAGE_GUIDE.md) · [Image folder](../assets/images)
